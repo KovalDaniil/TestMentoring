@@ -88,7 +88,12 @@ public class Simple {
      * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
      */
     public static double lengthInMeters(int sagenes, int arshins, int vershoks) {
-        return 0;
+        double vershoksLength = 4.445;
+        double sagenesToVershoks = (48 * vershoksLength) * sagenes;
+        double arshinsToVershoks = ((double) 48 / 3 * vershoksLength) * arshins;
+        double vershoksSum = vershoks*vershoksLength;
+        // в ответе 18.98 но по тесту 55.96
+        return (((sagenesToVershoks + arshinsToVershoks+vershoksSum) / 100));
     }
 
 
@@ -99,7 +104,9 @@ public class Simple {
      * Вывести значение того же угла в радианах (например, 0.63256).
      */
     public static double angleInRadian(int grad, int min, int sec) {
-        return 0;
+        final double p314 = Math.PI;
+        // объявил константу пи и по формуле вывел значение угла в радианах
+        return (grad*(p314/180)+min*(p314/(180*60))+sec*(p314/(180*60*60)));
     }
 
 
