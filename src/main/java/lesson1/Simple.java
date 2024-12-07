@@ -76,7 +76,7 @@ public class Simple {
      * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
      */
     public static int seconds(int hours, int minutes, int seconds) {
-        return 0;
+        return (hours * 60 * 60) + (minutes * 60) + seconds;
     }
 
 
