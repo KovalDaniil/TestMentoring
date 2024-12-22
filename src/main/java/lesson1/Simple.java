@@ -1,5 +1,7 @@
 package lesson1;
 
+import static java.lang.Math.sqrt;
+
 public class Simple {
 
     /**
@@ -40,7 +42,7 @@ public class Simple {
     public static double quadraticEquationRoot(double a, double b, double c) {
         double var10000 = -b;
         double var6 = discriminant(a, b, c);
-        return (var10000 + Math.sqrt(var6)) / ((double) 2 * a);
+        return (var10000 + sqrt(var6)) / ((double) 2 * a);
     }
 
 
@@ -51,7 +53,7 @@ public class Simple {
      */
     public static double quadraticRootProduct(double a, double b, double c) {
         double x1 = discriminant(a, b, c);
-        double sd = Math.sqrt(x1);
+        double sd = sqrt(x1);
         x1 = (-b + sd) / ((double) 2 * a);
         double x2 = (-b - sd) / ((double) 2 * a);
         return x1 * x2;
@@ -89,13 +91,13 @@ public class Simple {
      */
     public static double lengthInMeters(int sagenes, int arshins, int vershoks) {
         double vershoksLength = 4.445;
-        double sagenesToVershoks = (48 * vershoksLength) * sagenes;
-        double arshinsToVershoks = ((double) 48 / 3 * vershoksLength) * arshins;
-        double vershoksSum = vershoks*vershoksLength;
-        // в ответе 18.98 но по тесту 55.96
-        return (((sagenesToVershoks + arshinsToVershoks+vershoksSum) / 100));
-    }
+        double sagenesToVershoks = 48 * sagenes;
+        double arshinsToVershoks = 16 * arshins;
+        double vershoksSum = vershoks;
 
+        double totalLengthInCm = (sagenesToVershoks + arshinsToVershoks + vershoksSum) * vershoksLength;
+        return totalLengthInCm / 100;
+    }
 
     /**
      * Тривиальная
@@ -106,9 +108,8 @@ public class Simple {
     public static double angleInRadian(int grad, int min, int sec) {
         final double p314 = Math.PI;
         // объявил константу пи и по формуле вывел значение угла в радианах
-        return (grad*(p314/180)+min*(p314/(180*60))+sec*(p314/(180*60*60)));
+        return (grad * (p314 / 180) + min * (p314 / (180 * 60)) + sec * (p314 / (180 * 60 * 60)));
     }
-
 
     /**
      * Тривиальная
@@ -117,7 +118,7 @@ public class Simple {
      * Например, расстояние между (3, 0) и (0, 4) равно 5
      */
     public static double trackLength(double x1, double y1, double x2, double y2) {
-        return 0;
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
 
@@ -128,7 +129,18 @@ public class Simple {
      * Определить третью цифру справа в этом числе (в данном случае 8).
      */
     public static int thirdDigit(int number) {
-        return 0;
+        // Преобразуем число в строку
+ //        String strFromNumber = String.valueOf(number);
+        // Проверяем, что длина строки хотя бы 3
+ //       if (strFromNumber.length() < 3) {
+ //           throw new IllegalArgumentException("Число должно быть больше 100, чтобы иметь третью цифру справа.");
+ //       }
+        // Получаем третий символ справа и преобразуем в целое число
+ //      char thirdDigit = strFromNumber.charAt(strFromNumber.length() - 3);
+        // Преобразуем символ в цифру и возвращаем её
+ //       return Character.getNumericValue(thirdDigitChar);
+
+        return (number / 100) % 10;
     }
 
 
@@ -140,7 +152,9 @@ public class Simple {
      * Определите время поезда в пути в минутах (в данном случае 216).
      */
     public static int travelMinutes(int hoursDepart, int minutesDepart, int hoursArrive, int minutesArrive) {
-        return 0;
+        int departureTime = hoursDepart * 60 + minutesDepart;
+        int arrivalTime = hoursArrive * 60 + minutesArrive;
+        return arrivalTime-departureTime;
     }
 
 
@@ -152,7 +166,7 @@ public class Simple {
      * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
      */
     public static double accountInThreeYears(int initial, int percent) {
-        return 0;
+        return initial * Math.pow((1 + (double) percent / 100), 3);
     }
 
 
@@ -163,6 +177,13 @@ public class Simple {
      * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
      */
     public static int numberRevert(int number) {
-        return 0;
+        // Преобразуем число в строку
+        String numberStr = Integer.toString(number);
+
+        // Перевернем строку
+        String reversedStr = new StringBuilder(numberStr).reverse().toString();
+
+        // Преобразуем обратно в целое число
+        return Integer.parseInt(reversedStr);
     }
 }
