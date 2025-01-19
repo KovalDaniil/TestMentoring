@@ -176,15 +176,17 @@ public class Simple {
      * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
      */
     public static int numberRevert(int number) {
-        // Преобразуем число в строку
-        String numberStr = Integer.toString(number);
+        // Убедимся, что число трехзначное
+        if (number < 100 || number > 999) {
+            throw new IllegalArgumentException("Число должно быть трехзначным.");
+        }
+        // Извлекаем цифры
+        int hundreds = number / 100;
+        int tens = (number / 10) % 10;
+        int units = number % 10;
 
-        // Перевернем строку
-        String reversedStr = new StringBuilder(numberStr).reverse().toString();
+        // Формируем новое число в обратном порядке
 
-        // Преобразуем обратно в целое число
-        return Integer.parseInt(reversedStr);
-
-        //TODO переделать без строк
+        return units * 100 + tens * 10 + hundreds;
     }
 }

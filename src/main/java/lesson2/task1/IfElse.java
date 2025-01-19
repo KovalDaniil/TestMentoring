@@ -72,18 +72,20 @@ public class IfElse {
      * вернуть строку вида: «21 год», «32 года», «12 лет».
      */
     public static String ageDescription(int age) {
-        if (age == 21){
-            return "Возраст:" + age + "год";
-        } else if (age == 32){
-            return "Возраст:" + age + "года";
-        } else if (age == 12){
-            return "Возраст:" + age + "лет";
-        } else if (age > 200){
-            return "Возраст не может быть больше 200 лет";
-        } else if (age < 0){
+        if (age < 0) {
             return "Возраст не может быть меньше 0 лет";
-        } else{
-            return "Что то пошло не так";
+        } else if (age > 200) {
+            return "Возраст не может быть больше 200 лет";
+        } else {
+            String suffix;
+            if (age % 10 == 1 && age % 100 != 11) {
+                suffix = "год";
+            } else if (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)) {
+                suffix = "года";
+            } else {
+                suffix = "лет";
+            }
+            return age + " " + suffix;
         }
     }
 
@@ -152,8 +154,18 @@ public class IfElse {
      * Считать, что ладья и слон не могут загораживать друг друга.
      */
     public static int rookOrBishopThreatens(int kingX, int kingY, int rookX, int rookY, int bishopX, int bishopY) {
-        //TODO
-        return 0;
+        boolean threatFromRook = (kingX == rookX || kingY == rookY);
+        boolean threatFromBishop = (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY));
+
+        if (threatFromRook && threatFromBishop) {
+            return 3; // Угроза от обеих фигур
+        } else if (threatFromRook) {
+            return 1; // Угроза только от ладьи
+        } else if (threatFromBishop) {
+            return 2; // Угроза только от слона
+        } else {
+            return 0; // Угрозы нет
+        }
     }
 
     /**
@@ -165,8 +177,40 @@ public class IfElse {
      * Если такой треугольник не существует, вернуть -1.
      */
     public static int triangleKind(double a, double b, double c) {
-        //TODO
-        return 0;
+        // Сначала проверяем существование треугольника
+        if (a + b <= c || a + c <= b || b + c <= a) {
+            return -1; // Треугольник не существует
+        }
+
+        // Убедимся, что c - это самая длинная сторона
+        if (a > b) {
+            double temp = a;
+            a = b;
+            b = temp;
+        }
+        if (b > c) {
+            double temp = b;
+            b = c;
+            c = temp;
+        }
+        if (a > b) {
+            double temp = a;
+            a = b;
+            b = temp;
+        }
+
+        // Проверка типа треугольника
+        double a2 = a * a;
+        double b2 = b * b;
+        double c2 = c * c;
+
+        if (a2 + b2 > c2) {
+            return 0; // Остроугольный
+        } else if (a2 + b2 == c2) {
+            return 1; // Прямоугольный
+        } else {
+            return 2; // Тупоугольный
+        }
     }
 
 
@@ -181,7 +225,16 @@ public class IfElse {
      * будет классно, если будут имплементированы оба и будет написан второй тест)
      */
     public static int segmentLength(int a, int b, int c, int d) {
-        //TODO
-        return 0;
+        // Проверяем, пересекаются ли отрезки
+        if (b < c || d < a) {
+            return -1; // Пересечения нет
+        }
+
+        // Находим начало и конец пересечения
+        int start = Math.max(a, c);
+        int end = Math.min(b, d);
+
+        // Возвращаем длину пересечения
+        return end - start;
     }
 }
