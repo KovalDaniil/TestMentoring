@@ -72,8 +72,19 @@ public class IfElse {
      * вернуть строку вида: «21 год», «32 года», «12 лет».
      */
     public static String ageDescription(int age) {
-        //TODO
-        return "";
+        if (age == 21){
+            return "Возраст:" + age + "год";
+        } else if (age == 32){
+            return "Возраст:" + age + "года";
+        } else if (age == 12){
+            return "Возраст:" + age + "лет";
+        } else if (age > 200){
+            return "Возраст не может быть больше 200 лет";
+        } else if (age < 0){
+            return "Возраст не может быть меньше 0 лет";
+        } else{
+            return "Что то пошло не так";
+        }
     }
 
     /**
@@ -84,8 +95,26 @@ public class IfElse {
      * Определить, за какое время он одолел первую половину пути?
      */
     public static double timeForHalfWay(double t1, double v1, double t2, double v2, double t3, double v3) {
-        //TODO
-        return 0;
+        double d1 = t1 * v1;
+        double d2 = t2 * v2;
+        double d3 = t3 * v3;
+
+        double totalDistance = d1 + d2 + d3;
+
+        double halfDistance = totalDistance / 2;
+
+        // Время, затраченное на первую половину пути
+        double timeSpent = 0;
+
+        if (halfDistance <= d1) {
+            timeSpent = halfDistance / v1;
+        } else if (halfDistance <= (d1 + d2)) {
+            timeSpent = t1 + (halfDistance - d1) / v2;
+        } else {
+            timeSpent = t1 + t2 + (halfDistance - (d1 + d2)) / v3;
+        }
+
+        return timeSpent;
     }
 
     /**
@@ -98,8 +127,18 @@ public class IfElse {
      * Считать, что ладьи не могут загораживать друг друга
      */
     public static int whichRookThreatens(int kingX, int kingY, int rookX1, int rookY1, int rookX2, int rookY2) {
-        //TODO
-        return 0;
+        boolean threatFromRook1 = (kingX == rookX1 || kingY == rookY1);
+        boolean threatFromRook2 = (kingX == rookX2 || kingY == rookY2);
+
+        if (threatFromRook1 && threatFromRook2) {
+            return 3; // Угроза от обеих ладей
+        } else if (threatFromRook1) {
+            return 1; // Угроза только от первой ладьи
+        } else if (threatFromRook2) {
+            return 2; // Угроза только от второй ладьи
+        } else {
+            return 0; // Угрозы нет
+        }
     }
 
     /**

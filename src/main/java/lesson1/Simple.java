@@ -139,7 +139,6 @@ public class Simple {
  //      char thirdDigit = strFromNumber.charAt(strFromNumber.length() - 3);
         // Преобразуем символ в цифру и возвращаем её
  //       return Character.getNumericValue(thirdDigitChar);
- Object
         return (number / 100) % 10;
     }
 
