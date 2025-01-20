@@ -126,8 +126,14 @@ public class Loops {
      * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
      */
     public static int minDivisor(int n) {
-        //TODO
-        return 0;
+        // Проверяем делители начиная с 2 до sqrt(n)
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return i; // Возвращаем первый найденный делитель
+            }
+        }
+        // Если делителей не найдено, n является простым числом
+        return n;
     }
 
     /**
@@ -136,8 +142,14 @@ public class Loops {
      * Для заданного числа n > 1 найти максимальный делитель, меньший n
      */
     public static int maxDivisor(int n) {
-        //TODO
-        return 0;
+        // Начинаем с n-1 и ищем делитель
+        for (int i = n - 1; i > 1; i--) {
+            if (n % i == 0) {
+                return i; // Возвращаем первый найденный делитель
+            }
+        }
+        // Если делителей не найдено, это значит, что n является простым числом
+        return 1; // В этом случае максимальный делитель будет 1
     }
 
     /**
@@ -148,8 +160,17 @@ public class Loops {
      * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
      */
     public static boolean isCoPrime(int m, int n) {
-        //TODO
-        return false;
+        return gcd(m, n) == 1; // Если НОД равен 1, то числа взаимно простые
+    }
+
+    // Метод для нахождения наибольшего общего делителя (НОД) с помощью алгоритма Евклида
+    private static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a; // Возвращаем НОД
     }
 
     /**
@@ -160,8 +181,16 @@ public class Loops {
      * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
      */
     public static boolean squareBetweenExists(int m, int n) {
-        //TODO
-        return false;
+        // Проверяем, что m меньше или равно n
+        if (m > n) {
+            return false; // Если диапазон некорректен, возвращаем false
+        }
+
+        // Находим наименьшее целое число k, такое что k*k >= m
+        int k = (int) Math.ceil(Math.sqrt(m));
+
+        // Проверяем, существует ли k*k <= n
+        return k * k <= n;
     }
 
     /**
