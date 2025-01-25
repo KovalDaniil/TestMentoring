@@ -46,7 +46,7 @@ public class IfElse {
      * <p>
      * Найти наименьший корень биквадратного уравнения ax^4 + bx^2 + c = 0
      */
-    public static double minBiRoot(double a, double b, double c) {
+    public static Double minBiRoot(double a, double b, double c) {
         // 1: в главной ветке if выполняется НЕСКОЛЬКО операторов
         if (a == 0.0) {
             if (b == 0.0) return Double.NaN; // ... и ничего больше не делать
