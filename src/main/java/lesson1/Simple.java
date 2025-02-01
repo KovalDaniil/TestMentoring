@@ -81,7 +81,6 @@ public class Simple {
         return (hours * 60 * 60) + (minutes * 60) + seconds;
     }
 
-
     /**
      * Тривиальная
      * <p>
@@ -121,7 +120,6 @@ public class Simple {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-
     /**
      * Простая
      * <p>
@@ -129,19 +127,17 @@ public class Simple {
      * Определить третью цифру справа в этом числе (в данном случае 8).
      */
     public static int thirdDigit(int number) {
-        // Преобразуем число в строку
- //        String strFromNumber = String.valueOf(number);
-        // Проверяем, что длина строки хотя бы 3
- //       if (strFromNumber.length() < 3) {
- //           throw new IllegalArgumentException("Число должно быть больше 100, чтобы иметь третью цифру справа.");
- //       }
-        // Получаем третий символ справа и преобразуем в целое число
- //      char thirdDigit = strFromNumber.charAt(strFromNumber.length() - 3);
-        // Преобразуем символ в цифру и возвращаем её
- //       return Character.getNumericValue(thirdDigitChar);
-        return (number / 100) % 10;
+      //   Преобразуем число в строку
+         String strFromNumber = String.valueOf(number);
+      //   Проверяем, что длина строки хотя бы 3
+        if (strFromNumber.length() < 3) {
+            throw new IllegalArgumentException("Число должно быть больше 100, чтобы иметь третью цифру справа.");
+        }
+       //  Получаем третий символ справа и преобразуем в целое число
+       char thirdDigit = strFromNumber.charAt(strFromNumber.length() - 3);
+      //   Преобразуем символ в цифру и возвращаем её
+        return Character.getNumericValue(thirdDigit);
     }
-
 
     /**
      * Простая
