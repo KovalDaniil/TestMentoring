@@ -1,11 +1,6 @@
 package lesson5;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MapTasks {
 
@@ -77,8 +72,33 @@ public class MapTasks {
      * mapOf("Emergency" to "911", "Police" to "02")
      * ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
      */
-    public static Map<String,String> mergePhoneBooks(Map<String,String> mapA, Map<String,String> mapB) {
-        return null;
+    public static Map<String, String> mergePhoneBooks(Map<String, String> mapA, Map<String, String> mapB) {
+        Map<String, String> mergedMap = new HashMap<>();
+
+        // Добавляем все записи из mapA
+        for (Map.Entry<String, String> entry : mapA.entrySet()) {
+            mergedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        // Обрабатываем записи из mapB
+        for (Map.Entry<String, String> entry : mapB.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            // Если ключ уже существует в mergedMap, добавляем значение
+            if (mergedMap.containsKey(key)) {
+                String existingValue = mergedMap.get(key);
+                // Добавляем только уникальные значения
+                if (!existingValue.contains(value)) {
+                    mergedMap.put(key, existingValue + ", " + value);
+                }
+            } else {
+                // Если ключа нет, просто добавляем его
+                mergedMap.put(key, value);
+            }
+        }
+
+        return mergedMap;
     }
 
     /**
@@ -92,8 +112,21 @@ public class MapTasks {
      * -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
      */
 
-    public static Map<String,Integer> buildGrades(Map<String,Integer> grades) {
-        return null;
+    public static Map<Integer, List<String>> buildGrades(Map<String, Integer> grades) {
+        Map<Integer, List<String>> result = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : grades.entrySet()) {
+            String student = entry.getKey();
+            Integer grade = entry.getValue();
+
+            // Если оценка уже есть в результирующем массиве, добавляем студента в список
+            if (!result.containsKey(grade)) {
+                result.put(grade, new ArrayList<>());
+            }
+            result.get(grade).add(student);
+        }
+
+        return result;
     }
 
     /**
@@ -106,8 +139,18 @@ public class MapTasks {
      * containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
      * containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
      */
-    public static boolean containsIn(Map<String,String> a, Map<String,String> b) {
-        return false;
+    public static boolean containsIn(Map<String, String> a, Map<String, String> b) {
+        // Проходим по всем записям в массиве a
+        for (Map.Entry<String, String> entry : a.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            // Проверяем, существует ли ключ в b и совпадает ли значение
+            if (!b.containsKey(key) || !b.get(key).equals(value)) {
+                return false; // Если ключа нет или значения не совпадают, возвращаем false
+            }
+        }
+        return true; // Если все ключи и значения совпадают, возвращаем true
     }
 
     /**
@@ -120,8 +163,28 @@ public class MapTasks {
      * averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
      * -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
      */
-    public static Map<String,Double> averageStockPrice(Map<String,Double> stockPrices) {
-        return null;
+    public static Map<String, Double> averageStockPrice(List<Map.Entry<String, Double>> stockPrices) {
+        Map<String, Double> totalPrices = new HashMap<>();
+        Map<String, Integer> countPrices = new HashMap<>();
+
+        // Проходим по всем парам "акция"-"стоимость"
+        for (Map.Entry<String, Double> entry : stockPrices) {
+            String stock = entry.getKey();
+            Double price = entry.getValue();
+
+            // Обновляем общую стоимость
+            totalPrices.put(stock, totalPrices.getOrDefault(stock, 0.0) + price);
+            // Увеличиваем счетчик
+            countPrices.put(stock, countPrices.getOrDefault(stock, 0) + 1);
+        }
+
+        // Создаем результирующий ассоциативный массив с усредненными значениями
+        Map<String, Double> averagePrices = new HashMap<>();
+        for (String stock : totalPrices.keySet()) {
+            averagePrices.put(stock, totalPrices.get(stock) / countPrices.get(stock));
+        }
+
+        return averagePrices;
     }
 
     /**

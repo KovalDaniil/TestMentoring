@@ -143,8 +143,17 @@ public class Lists {
      * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
      * Модуль пустого вектора считать равным 0.0.
      */
-    public static double abs(List v) {
-        return 0.0;
+    public static double abs(List<Double> v) {
+        if (v.isEmpty()) {
+            return 0.0; // Модуль пустого вектора равен 0.0
+        }
+
+        double sum = 0.0; // Переменная для хранения суммы квадратов
+        for (double component : v) {
+            sum += component * component; // Суммируем квадраты компонентов
+        }
+
+        return Math.sqrt(sum); // Возвращаем квадратный корень из суммы квадратов
     }
 
     /**
@@ -153,7 +162,16 @@ public class Lists {
      * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
      */
     public static double mean(List<Double> list) {
-        return 0.0;
+        if (list.isEmpty()) {
+            return 0.0; // Если список пуст, возвращаем 0.0
+        }
+
+        double sum = 0.0; // Переменная для хранения суммы элементов
+        for (double number : list) {
+            sum += number; // Суммируем элементы списка
+        }
+
+        return sum / list.size(); // Возвращаем среднее арифметическое
     }
 
 
@@ -166,7 +184,16 @@ public class Lists {
      * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
      */
     public static List<Double> center(List<Double> list) {
-        return null;
+        if (list == null || list.isEmpty()) {
+            return list; // Если список пуст или null, ничего не делаем и возвращаем его
+        }
+
+        double meanValue = mean(list); // Вычисляем среднее арифметическое
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, list.get(i) - meanValue); // Уменьшаем каждый элемент на среднее
+        }
+
+        return list; // Возвращаем измененный список
     }
 
     /**
@@ -177,8 +204,17 @@ public class Lists {
      * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
      */
     public static double times(List<Double> a, List<Double> b) {
+        // Проверка на пустые списки или разную длину
+        if (a.isEmpty() || b.isEmpty() || a.size() != b.size()) {
+            return 0.0; // Если один из списков пуст или размеры не совпадают, возвращаем 0.0
+        }
 
-        return 0.0;
+        double productSum = 0.0; // Переменная для хранения суммы произведений
+        for (int i = 0; i < a.size(); i++) {
+            productSum += a.get(i) * b.get(i); // Суммируем произведения соответствующих элементов
+        }
+
+        return productSum; // Возвращаем скалярное произведение
     }
 
     /**
@@ -190,7 +226,17 @@ public class Lists {
      * Значение пустого многочлена равно 0.0 при любом x.
      */
     public static double polynom(List<Double> p, double x) {
-        return 0.0;
+        // Если список пустой, возвращаем 0.0
+        if (p.isEmpty()) {
+            return 0.0;
+        }
+
+        double result = 0.0; // Переменная для хранения результата
+        for (int i = 0; i < p.size(); i++) {
+            result += p.get(i) * Math.pow(x, i); // Суммируем произведения коэффициентов и соответствующих степеней x
+        }
+
+        return result; // Возвращаем значение многочлена
     }
 
     /**
@@ -204,7 +250,21 @@ public class Lists {
      * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
      */
     public static List<Double> accumulate(List<Double> list) {
-        return null;
+        // Если список пустой, ничего не делаем
+        if (list.isEmpty()) {
+            return list;
+        }
+
+        // Переменная для хранения текущей суммы
+        double currentSum = list.get(0); // Начинаем с первого элемента
+
+        // Проходим по списку, начиная со второго элемента
+        for (int i = 1; i < list.size(); i++) {
+            currentSum += list.get(i); // Добавляем текущий элемент к сумме
+            list.set(i, currentSum); // Обновляем текущий элемент
+        }
+
+        return list; // Возвращаем изменённый список
     }
 
 
@@ -216,7 +276,28 @@ public class Lists {
      * Множители в списке должны располагаться по возрастанию.
      */
     public static List<Integer> factorize(int n) {
-        return null;
+        List<Integer> factors = new ArrayList<>(); // Список для хранения множителей
+
+        // Проверяем делимость на 2
+        while (n % 2 == 0) {
+            factors.add(2); // Добавляем 2 в список множителей
+            n /= 2; // Делим n на 2
+        }
+
+        // Проверяем делимость на нечетные числа от 3 до sqrt(n)
+        for (int i = 3; i <= Math.sqrt(n); i += 2) {
+            while (n % i == 0) {
+                factors.add(i); // Добавляем i в список множителей
+                n /= i; // Делим n на i
+            }
+        }
+
+        // Если n стало больше 2, то оно является простым числом
+        if (n > 2) {
+            factors.add(n); // Добавляем n в список множителей
+        }
+
+        return factors; // Возвращаем список множителей
     }
 
     /**
@@ -227,7 +308,37 @@ public class Lists {
      * Множители в результирующей строке должны располагаться по возрастанию.
      */
     public static String factorizeToString(int n) {
-        return null;
+        List<Integer> factors = new ArrayList<>(); // Список для хранения множителей
+
+        // Проверяем делимость на 2
+        while (n % 2 == 0) {
+            factors.add(2); // Добавляем 2 в список множителей
+            n /= 2; // Делим n на 2
+        }
+
+        // Проверяем делимость на нечетные числа от 3 до sqrt(n)
+        for (int i = 3; i <= Math.sqrt(n); i += 2) {
+            while (n % i == 0) {
+                factors.add(i); // Добавляем i в список множителей
+                n /= i; // Делим n на i
+            }
+        }
+
+        // Если n стало больше 2, то оно является простым числом
+        if (n > 2) {
+            factors.add(n); // Добавляем n в список множителей
+        }
+
+        // Формируем строку из множителей
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < factors.size(); i++) {
+            result.append(factors.get(i));
+            if (i < factors.size() - 1) {
+                result.append("*"); // Добавляем * между множителями
+            }
+        }
+
+        return result.toString(); // Возвращаем строку с множителями
     }
 
     /**
@@ -238,7 +349,26 @@ public class Lists {
      * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
      */
     public static List<Integer> convert(int n, int base) {
-        return null;
+        List<Integer> digits = new ArrayList<>(); // Список для хранения цифр
+
+        if (n == 0) {
+            digits.add(0); // Если n равно 0, добавляем 0 в список
+            return digits;
+        }
+
+        while (n > 0) {
+            int digit = n % base; // Находим последнюю цифру в системе счисления base
+            digits.add(digit); // Добавляем цифру в список
+            n /= base; // Уменьшаем n, деля его на base
+        }
+
+        // Переворачиваем список, чтобы получить цифры от старшей к младшей
+        List<Integer> result = new ArrayList<>();
+        for (int i = digits.size() - 1; i >= 0; i--) {
+            result.add(digits.get(i));
+        }
+
+        return result; // Возвращаем список цифр
     }
 
     /**
@@ -250,7 +380,23 @@ public class Lists {
      * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
      */
     public static String convertToString(int n, int base) {
-        return null;
+        if (n == 0) {
+            return "0"; // Если n равно 0, возвращаем "0"
+        }
+
+        StringBuilder result = new StringBuilder(); // Строка для хранения результата
+
+        while (n > 0) {
+            int digit = n % base; // Находим последнюю цифру в системе счисления base
+            if (digit < 10) {
+                result.append(digit); // Добавляем цифру (0-9)
+            } else {
+                result.append((char) ('a' + (digit - 10))); // Добавляем букву (a-z)
+            }
+            n /= base; // Уменьшаем n, деля его на base
+        }
+
+        return result.reverse().toString(); // Переворачиваем строку и возвращаем результат
     }
 
     /**
@@ -261,7 +407,16 @@ public class Lists {
      * Например: digits = (1, 3, 12), base = 14 -> 250
      */
     public static int decimal(List<Integer> digits, int base) {
-        return 0;
+        int result = 0; // Переменная для хранения результата
+        int power = 1;  // Переменная для хранения текущей степени основания
+
+        // Проходим по списку цифр от младшей к старшей
+        for (int i = digits.size() - 1; i >= 0; i--) {
+            result += digits.get(i) * power; // Увеличиваем результат на значение цифры, умноженное на соответствующую степень основания
+            power *= base; // Увеличиваем степень основания
+        }
+
+        return result; // Возвращаем результат
     }
 
     /**
@@ -274,7 +429,26 @@ public class Lists {
      * Например: str = "13c", base = 14 -> 250
      */
     public static int decimalFromString(String str, int base) {
-        return 0;
+        int result = 0; // Переменная для хранения результата
+        int length = str.length(); // Длина строки
+
+        // Проходим по строке от старшей к младшей цифре
+        for (int i = 0; i < length; i++) {
+            char currentChar = str.charAt(i); // Получаем текущий символ
+            int digit;
+
+            // Проверяем, является ли символ цифрой или буквой
+            if (Character.isDigit(currentChar)) {
+                digit = currentChar - '0'; // Преобразуем символ цифры в целое число
+            } else {
+                digit = currentChar - 'a' + 10; // Преобразуем символ буквы в целое число
+            }
+
+            // Увеличиваем результат на значение цифры, умноженное на соответствующую степень основания
+            result = result * base + digit;
+        }
+
+        return result; // Возвращаем результат
     }
 
     /**
@@ -286,7 +460,26 @@ public class Lists {
      * Например: 23 = XXIII, 44 = XLIV, 100 = C
      */
     public static String roman(int n) {
-        return null;
+        // Массив римских цифр и соответствующих значений
+        String[] romanNumerals = {
+                "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"
+        };
+        int[] values = {
+                1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1
+        };
+
+        StringBuilder result = new StringBuilder(); // Строка для хранения результата
+
+        // Проходим по массиву значений
+        for (int i = 0; i < values.length; i++) {
+            // Пока n больше или равно текущему значению
+            while (n >= values[i]) {
+                result.append(romanNumerals[i]); // Добавляем соответствующую римскую цифру
+                n -= values[i]; // Уменьшаем n на текущее значение
+            }
+        }
+
+        return result.toString(); // Возвращаем результат
     }
 
     /**
@@ -297,7 +490,44 @@ public class Lists {
      * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
      */
     public static String russian(int n) {
-        return null;
+        if (n < 1 || n > 999999) {
+            throw new IllegalArgumentException("Число должно быть в диапазоне от 1 до 999999");
+        }
+
+        String[] units = {"", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
+        String[] teens = {"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+                "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
+        String[] tens = {"", "десять", "двадцать", "тридцать", "сорок", "пятьдесят",
+                "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
+        String[] hundreds = {"", "сто", "двести", "триста", "четыреста", "пятьсот",
+                "шестьсот", "семьсот", "восемьсот", "девятьсот"};
+        String[] thousands = {"", "одна тысяча", "две тысячи", "три тысячи", "четыре тысячи",
+                "пять тысяч", "шесть тысяч", "семь тысяч", "восемь тысяч", "девять тысяч"};
+
+        StringBuilder result = new StringBuilder();
+
+        // Обработка тысяч
+        int thousandPart = n / 1000;
+        if (thousandPart > 0) {
+            result.append(thousands[thousandPart]).append(" ");
+        }
+
+        // Обработка сотен
+        int hundredPart = (n % 1000) / 100;
+        result.append(hundreds[hundredPart]).append(" ");
+
+        // Обработка десятков и единиц
+        int tenPart = (n % 100) / 10;
+        int unitPart = n % 10;
+
+        if (tenPart == 1 && unitPart > 0) {
+            result.append(teens[unitPart - 1]).append(" ");
+        } else {
+            result.append(tens[tenPart]).append(" ");
+            result.append(units[unitPart]).append(" ");
+        }
+
+        return result.toString().trim(); // Убираем лишние пробелы
     }
 
 
