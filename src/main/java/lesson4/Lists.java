@@ -150,10 +150,10 @@ public class Lists {
 
         double sum = 0.0; // Переменная для хранения суммы квадратов
         for (double component : v) {
-            sum += component * component; // Суммируем квадраты компонентов
+            sum += component * component;
         }
 
-        return Math.sqrt(sum); // Возвращаем квадратный корень из суммы квадратов
+        return Math.sqrt(sum);
     }
 
     /**
@@ -163,17 +163,16 @@ public class Lists {
      */
     public static double mean(List<Double> list) {
         if (list.isEmpty()) {
-            return 0.0; // Если список пуст, возвращаем 0.0
+            return 0.0;
         }
 
-        double sum = 0.0; // Переменная для хранения суммы элементов
+        double sum = 0.0;
         for (double number : list) {
-            sum += number; // Суммируем элементы списка
+            sum += number;
         }
 
-        return sum / list.size(); // Возвращаем среднее арифметическое
+        return sum / list.size();
     }
-
 
     /**
      * Средняя
@@ -185,15 +184,21 @@ public class Lists {
      */
     public static List<Double> center(List<Double> list) {
         if (list == null || list.isEmpty()) {
-            return list; // Если список пуст или null, ничего не делаем и возвращаем его
+            return list;
         }
 
-        double meanValue = mean(list); // Вычисляем среднее арифметическое
+        double sum = 0.0;
+        for (double number : list) {
+            sum += number;
+        }
+
+        double meanValue = sum / list.size();
+
         for (int i = 0; i < list.size(); i++) {
-            list.set(i, list.get(i) - meanValue); // Уменьшаем каждый элемент на среднее
+            list.set(i, list.get(i) - meanValue);
         }
 
-        return list; // Возвращаем измененный список
+        return list;
     }
 
     /**
@@ -204,17 +209,16 @@ public class Lists {
      * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
      */
     public static double times(List<Double> a, List<Double> b) {
-        // Проверка на пустые списки или разную длину
         if (a.isEmpty() || b.isEmpty() || a.size() != b.size()) {
-            return 0.0; // Если один из списков пуст или размеры не совпадают, возвращаем 0.0
+            return 0.0;
         }
 
-        double productSum = 0.0; // Переменная для хранения суммы произведений
+        double productSum = 0.0;
         for (int i = 0; i < a.size(); i++) {
-            productSum += a.get(i) * b.get(i); // Суммируем произведения соответствующих элементов
+            productSum += a.get(i) * b.get(i);
         }
 
-        return productSum; // Возвращаем скалярное произведение
+        return productSum;
     }
 
     /**
@@ -226,17 +230,16 @@ public class Lists {
      * Значение пустого многочлена равно 0.0 при любом x.
      */
     public static double polynom(List<Double> p, double x) {
-        // Если список пустой, возвращаем 0.0
         if (p.isEmpty()) {
             return 0.0;
         }
 
-        double result = 0.0; // Переменная для хранения результата
+        double result = 0.0;
         for (int i = 0; i < p.size(); i++) {
-            result += p.get(i) * Math.pow(x, i); // Суммируем произведения коэффициентов и соответствующих степеней x
+            result += p.get(i) * Math.pow(x, i); // Сумма произведения коэффициентов и соответствующих степеней x
         }
 
-        return result; // Возвращаем значение многочлена
+        return result;
     }
 
     /**
@@ -250,13 +253,12 @@ public class Lists {
      * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
      */
     public static List<Double> accumulate(List<Double> list) {
-        // Если список пустой, ничего не делаем
         if (list.isEmpty()) {
             return list;
         }
 
         // Переменная для хранения текущей суммы
-        double currentSum = list.get(0); // Начинаем с первого элемента
+        double currentSum = list.get(0);
 
         // Проходим по списку, начиная со второго элемента
         for (int i = 1; i < list.size(); i++) {
@@ -264,9 +266,8 @@ public class Lists {
             list.set(i, currentSum); // Обновляем текущий элемент
         }
 
-        return list; // Возвращаем изменённый список
+        return list;
     }
-
 
     /**
      * Средняя
@@ -276,11 +277,10 @@ public class Lists {
      * Множители в списке должны располагаться по возрастанию.
      */
     public static List<Integer> factorize(int n) {
-        List<Integer> factors = new ArrayList<>(); // Список для хранения множителей
+        List<Integer> factors = new ArrayList<>();
 
-        // Проверяем делимость на 2
         while (n % 2 == 0) {
-            factors.add(2); // Добавляем 2 в список множителей
+            factors.add(2);
             n /= 2; // Делим n на 2
         }
 
@@ -294,10 +294,10 @@ public class Lists {
 
         // Если n стало больше 2, то оно является простым числом
         if (n > 2) {
-            factors.add(n); // Добавляем n в список множителей
+            factors.add(n);
         }
 
-        return factors; // Возвращаем список множителей
+        return factors;
     }
 
     /**
@@ -308,25 +308,25 @@ public class Lists {
      * Множители в результирующей строке должны располагаться по возрастанию.
      */
     public static String factorizeToString(int n) {
-        List<Integer> factors = new ArrayList<>(); // Список для хранения множителей
+        List<Integer> factors = new ArrayList<>();
 
         // Проверяем делимость на 2
         while (n % 2 == 0) {
             factors.add(2); // Добавляем 2 в список множителей
-            n /= 2; // Делим n на 2
+            n /= 2;
         }
 
         // Проверяем делимость на нечетные числа от 3 до sqrt(n)
         for (int i = 3; i <= Math.sqrt(n); i += 2) {
             while (n % i == 0) {
-                factors.add(i); // Добавляем i в список множителей
-                n /= i; // Делим n на i
+                factors.add(i);
+                n /= i;
             }
         }
 
         // Если n стало больше 2, то оно является простым числом
         if (n > 2) {
-            factors.add(n); // Добавляем n в список множителей
+            factors.add(n);
         }
 
         // Формируем строку из множителей
@@ -338,7 +338,7 @@ public class Lists {
             }
         }
 
-        return result.toString(); // Возвращаем строку с множителями
+        return result.toString();
     }
 
     /**
